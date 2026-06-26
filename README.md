@@ -1,8 +1,8 @@
-# wellfound-scraper
+# wellfound-bot
 
-"Scraper" for the wellfound job board.
+"Automated bot" for the wellfound job board.
 It logs in and makes a post request to the api.
-For now it only fetches the jobs i'm looking for.
+For now it only fetches and applies the jobs i'm looking for.
 
 ## Usage
 
