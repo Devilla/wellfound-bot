@@ -1,30 +1,27 @@
+import os
 from .utils import *
 from .companies import Companies
 from .login import Login
 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-
-options = Options()
-options.add_argument("start-maximized")
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_argument("--user-data-dir=chrome-data")  # save cookies
+import undetected_chromedriver as uc
 
 
 class Wellfound(Companies, Login):
     def __init__(self, **kwargs):
-        self.driver = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager().install()), options=options
+        options = uc.ChromeOptions()
+        options.add_argument("--start-maximized")
+        options.add_argument(
+            f"--user-data-dir={os.path.join(os.getcwd(), 'chrome-data')}"
         )
+
+        self.driver = uc.Chrome(options=options, version_main=149)
 
         Companies.__init__(self, **kwargs)
         Login.__init__(self, self.driver)
 
     def __del__(self):
-        self.driver.quit()
+        if hasattr(self, "driver"):
+            self.driver.quit()
 
 
 __authors__ = ["jwc20"]

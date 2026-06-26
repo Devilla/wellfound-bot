@@ -9,3 +9,4 @@ webdriver-manager
 undetected-chromedriver
 disutils
 seleniumbase
+anthropic
